@@ -1,34 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="@dimen/screen_padding">
 
-    <TextView
-        android:id="@+id/locationTitle"
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.SpaceColony.Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="20sp" />
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/locationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/locationRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingTop="8dp" />
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingBottom="8dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/locationPrimary"
+        style="@style/Widget.SpaceColony.FilledButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp" />
+        android:layout_marginTop="4dp"
+        android:textAllCaps="false" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/locationSecondary"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp" />
-
+        android:layout_marginTop="8dp"
+        android:textAllCaps="false"
+        app:cornerRadius="16dp"
+        app:strokeColor="@color/nebula_cyan" />
 </LinearLayout>

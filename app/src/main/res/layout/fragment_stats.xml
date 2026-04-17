@@ -1,31 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="@dimen/screen_padding">
 
-    <TextView
-        android:id="@+id/statsSummary"
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.SpaceColony.Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Win rate: 0%"
-        android:textStyle="bold"
-        android:textSize="18sp" />
+        android:layout_marginBottom="12dp">
 
-    <ProgressBar
-        android:id="@+id/statsWinRateBar"
-        style="?android:attr/progressBarStyleHorizontal"
+        <LinearLayout
+            android:id="@+id/statsHeaderCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
+                android:text="ANALYTICS"
+                android:textAllCaps="true"
+                android:textColor="@color/nebula_purple"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/statsSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Win rate: 0%"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/statsWinRateBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginTop="10dp"
+                android:max="100"
+                android:progressDrawable="@drawable/progress_stats_win" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="6dp"
-        android:max="100" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:text="Per-crew performance"
+        android:textColor="@color/text_primary"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/statsRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="10dp" />
-
+        android:clipToPadding="false"
+        android:overScrollMode="never" />
 </LinearLayout>

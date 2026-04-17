@@ -1,5 +1,6 @@
 package com.example.spacecolony.ui;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +38,9 @@ public class StatsFragment extends Fragment {
         adapter = new CrewAdapter(0);
         RecyclerView recycler = view.findViewById(R.id.statsRecycler);
         recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
+        DefaultItemAnimator animator = new DefaultItemAnimator();
+        animator.setAddDuration(340);
+        recycler.setItemAnimator(animator);
         recycler.setAdapter(adapter);
     }
 
@@ -51,8 +56,11 @@ public class StatsFragment extends Fragment {
         int winRate = (int) ((storage.getTotalMissionWins() * 100f) / missions);
         TextView label = view.findViewById(R.id.statsSummary);
         ProgressBar winRateBar = view.findViewById(R.id.statsWinRateBar);
-        winRateBar.setProgress(winRate);
         label.setText("Win rate: " + winRate + "%");
+        int start = winRateBar.getProgress();
+        ObjectAnimator anim = ObjectAnimator.ofInt(winRateBar, "progress", start, winRate);
+        anim.setDuration(650);
+        anim.start();
 
         List<CrewMember> all = new ArrayList<>();
         all.addAll(storage.getCrewAt(Location.QUARTERS));

@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF0A0E17</color>
+    <color name="white">#FFF8FAFF</color>
+
+    <!-- Nebula core -->
+    <color name="void_deep">#FF0B0F1A</color>
+    <color name="void_mid">#FF12182A</color>
+    <color name="nebula_purple">#FF6B4EE6</color>
+    <color name="nebula_cyan">#FF00D4FF</color>
+    <color name="nebula_magenta">#FFE040FB</color>
+    <color name="accent_gold">#FFFFC857</color>
+    <color name="accent_danger">#FFFF6B6B</color>
+    <color name="accent_success">#FF4ADE80</color>
+
+    <color name="surface_card">#CC1A2238</color>
+    <color name="surface_card_stroke">#40FFFFFF</color>
+    <color name="text_primary">#FFF0F4FF</color>
+    <color name="text_secondary">#B3C4D4E8</color>
+    <color name="text_muted">#8090A4B8</color>
+
+    <!-- Material 3 roles (light baseline — overridden in theme) -->
+    <color name="md_theme_primary">@color/nebula_cyan</color>
+    <color name="md_theme_on_primary">@color/black</color>
+    <color name="md_theme_secondary">@color/nebula_purple</color>
+    <color name="md_theme_surface">@color/void_mid</color>
+    <color name="md_theme_on_surface">@color/text_primary</color>
 </resources>

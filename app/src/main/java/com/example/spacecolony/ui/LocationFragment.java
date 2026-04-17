@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,6 +61,11 @@ public abstract class LocationFragment extends Fragment {
 
         title.setText(getTitle());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        DefaultItemAnimator animator = new DefaultItemAnimator();
+        animator.setAddDuration(380);
+        animator.setChangeDuration(260);
+        animator.setMoveDuration(320);
+        recyclerView.setItemAnimator(animator);
         recyclerView.setAdapter(adapter);
         primary.setText(primaryText());
         primary.setOnClickListener(v -> performPrimary());

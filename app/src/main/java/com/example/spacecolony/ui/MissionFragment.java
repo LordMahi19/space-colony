@@ -1,10 +1,10 @@
 package com.example.spacecolony.ui;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,8 +12,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.button.MaterialButton;
 
 import com.example.spacecolony.GameRepository;
 import com.example.spacecolony.R;
@@ -30,10 +33,11 @@ public class MissionFragment extends Fragment {
     private TextView title;
     private TextView log;
     private ProgressBar threatBar;
-    private Button launch;
-    private Button attack;
-    private Button defend;
-    private Button special;
+    private View threatCard;
+    private MaterialButton launch;
+    private MaterialButton attack;
+    private MaterialButton defend;
+    private MaterialButton special;
 
     @Nullable
     @Override
@@ -46,7 +50,11 @@ public class MissionFragment extends Fragment {
         adapter = new CrewAdapter(3);
         RecyclerView recycler = view.findViewById(R.id.missionCrewRecycler);
         recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
+        DefaultItemAnimator animator = new DefaultItemAnimator();
+        animator.setAddDuration(360);
+        recycler.setItemAnimator(animator);
         recycler.setAdapter(adapter);
+        threatCard = view.findViewById(R.id.missionThreatCard);
         title = view.findViewById(R.id.missionTitle);
         log = view.findViewById(R.id.missionLog);
         threatBar = view.findViewById(R.id.threatEnergyBar);
@@ -84,7 +92,13 @@ public class MissionFragment extends Fragment {
         appendLog();
         title.setText(session.getMissionType().getLabel() + " vs " + session.getThreat().getName());
         threatBar.setMax(session.getThreat().getMaxEnergy());
-        threatBar.setProgress(session.getThreat().getEnergy());
+        threatBar.setProgress(0);
+        animateThreatProgress(session.getThreat().getEnergy());
+        if (threatCard != null) {
+            UiEffects.pulse(threatCard);
+        } else {
+            UiEffects.pulse(threatBar);
+        }
         updateButtons();
     }
 
@@ -93,7 +107,8 @@ public class MissionFragment extends Fragment {
             return;
         }
         session.performTurn(action);
-        threatBar.setProgress(session.getThreat().getEnergy());
+        animateThreatProgress(session.getThreat().getEnergy());
+        UiEffects.pulse(threatBar);
         adapter.notifyDataSetChanged();
         appendLog();
         if (session.isEnded()) {
@@ -120,5 +135,12 @@ public class MissionFragment extends Fragment {
         defend.setEnabled(active);
         special.setEnabled(active);
         launch.setEnabled(!active);
+    }
+
+    private void animateThreatProgress(int target) {
+        int start = threatBar.getProgress();
+        ObjectAnimator anim = ObjectAnimator.ofInt(threatBar, "progress", start, target);
+        anim.setDuration(220);
+        anim.start();
     }
 }

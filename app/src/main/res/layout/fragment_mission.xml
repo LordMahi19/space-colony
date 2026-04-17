@@ -1,37 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="@dimen/screen_padding">
 
-    <TextView
-        android:id="@+id/missionTitle"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/missionThreatCard"
+        style="@style/Widget.SpaceColony.Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mission Control"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="10dp"
+        app:strokeColor="@color/accent_danger"
+        app:strokeWidth="1dp">
 
-    <ProgressBar
-        android:id="@+id/threatEnergyBar"
-        style="?android:attr/progressBarStyleHorizontal"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.12"
+                android:text="THREAT STATUS"
+                android:textAllCaps="true"
+                android:textColor="@color/accent_danger"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/missionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Mission Control"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/threatEnergyBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:layout_marginTop="12dp"
+                android:max="100"
+                android:progressDrawable="@drawable/progress_threat" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:layout_marginTop="8dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:text="Squad in Mission Control"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/missionCrewRecycler"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginTop="8dp" />
+        android:layout_height="200dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/launchMissionButton"
+        style="@style/Widget.SpaceColony.FilledButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Launch Mission (Select 2-3)" />
+        android:text="Launch mission (select 2–3)"
+        android:textAllCaps="false" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,39 +83,63 @@
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/missionAttackButton"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:text="Attack" />
+            android:text="Attack"
+            android:textAllCaps="false"
+            app:cornerRadius="14dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/missionDefendButton"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:text="Defend" />
+            android:text="Defend"
+            android:textAllCaps="false"
+            app:cornerRadius="14dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/missionSpecialButton"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_weight="1"
-            android:text="Special" />
+            android:text="Special"
+            android:textAllCaps="false"
+            app:cornerRadius="14dp" />
     </LinearLayout>
 
-    <ScrollView
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.SpaceColony.Card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="12dp"
+        android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/missionLog"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp" />
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:padding="12dp">
 
+            <TextView
+                android:id="@+id/missionLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:lineSpacingExtra="3dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

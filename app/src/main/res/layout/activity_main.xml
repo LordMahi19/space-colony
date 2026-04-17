@@ -1,35 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
-    <HorizontalScrollView
+    <com.example.spacecolony.ui.StarfieldView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+    <View
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="-40dp"
+        android:layout_marginEnd="-50dp"
+        android:alpha="0.55"
+        android:background="@drawable/bg_glow_orb" />
+
+    <View
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="-60dp"
+        android:layout_marginBottom="-30dp"
+        android:alpha="0.35"
+        android:background="@drawable/bg_glow_orb"
+        android:rotation="180" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/mainToolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="6dp">
+            android:background="@android:color/transparent"
+            android:minHeight="?attr/actionBarSize"
+            app:subtitle="Colony command"
+            app:subtitleTextAppearance="@style/TextAppearance.Material3.BodySmall"
+            app:subtitleTextColor="@color/text_muted"
+            app:title="Space Colony"
+            app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+            app:titleTextColor="@color/text_primary" />
 
-            <Button android:id="@+id/navHome" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Home" />
-            <Button android:id="@+id/navRecruit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Recruit" />
-            <Button android:id="@+id/navQuarters" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Quarters" />
-            <Button android:id="@+id/navSimulator" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Simulator" />
-            <Button android:id="@+id/navMission" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mission" />
-            <Button android:id="@+id/navMedbay" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Medbay" />
-            <Button android:id="@+id/navStats" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Stats" />
-            <Button android:id="@+id/navSave" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Save" />
-            <Button android:id="@+id/navLoad" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Load" />
-        </LinearLayout>
-    </HorizontalScrollView>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:fadeScrollbars="false"
+            android:fillViewport="false"
+            android:overScrollMode="never"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="6dp"
+            android:scrollbars="none">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="4dp">
 
-</LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navHome"
+                    style="@style/Widget.SpaceColony.NavButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="Home" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navRecruit"
+                    style="@style/Widget.SpaceColony.NavButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="Recruit" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navQuarters"
+                    style="@style/Widget.SpaceColony.NavButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="Quarters" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navSimulator"
+                    style="@style/Widget.SpaceColony.NavButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="Simulator" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navMission"
+                    style="@style/Widget.SpaceColony.NavButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="Mission" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navMedbay"
+                    style="@style/Widget.SpaceColony.NavButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="Medbay" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navStats"
+                    style="@style/Widget.SpaceColony.NavButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text="Stats" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navSave"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:minHeight="40dp"
+                    android:text="Save"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:cornerRadius="28dp"
+                    app:strokeColor="@color/nebula_cyan" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navLoad"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
+                    android:text="Load"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:cornerRadius="28dp"
+                    app:strokeColor="@color/nebula_purple" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+</FrameLayout>

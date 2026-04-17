@@ -1,15 +1,20 @@
 package com.example.spacecolony.ui;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.card.MaterialCardView;
 
 import com.example.spacecolony.R;
 import com.example.spacecolony.model.CrewMember;
@@ -79,6 +84,32 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewViewHolder
         holder.checkBox.setChecked(checked);
         holder.itemView.setOnClickListener(v -> toggle(member.getId(), holder.getBindingAdapterPosition()));
         holder.checkBox.setOnClickListener(v -> toggle(member.getId(), holder.getBindingAdapterPosition()));
+
+        MaterialCardView card = (MaterialCardView) holder.itemView;
+        float density = card.getResources().getDisplayMetrics().density;
+        card.setStrokeWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, checked ? 2.5f : 1f, card.getResources().getDisplayMetrics()));
+        card.setStrokeColor(ContextCompat.getColor(card.getContext(), checked ? R.color.nebula_cyan : R.color.surface_card_stroke));
+        card.setCardElevation(checked ? 10f : 4f);
+
+        if (holder.itemView.getTag(R.id.tag_crew_row_animated) == null) {
+            holder.itemView.setTag(R.id.tag_crew_row_animated, Boolean.TRUE);
+            holder.itemView.setAlpha(0f);
+            holder.itemView.setTranslationY(22f);
+            holder.itemView.animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setDuration(320)
+                    .setStartDelay(Math.min(position * 42L, 380L))
+                    .setInterpolator(new DecelerateInterpolator(1.3f))
+                    .start();
+        }
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull CrewViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.itemView.animate().cancel();
+        holder.itemView.setTag(R.id.tag_crew_row_animated, null);
     }
 
     private void toggle(int id, int adapterPosition) {
