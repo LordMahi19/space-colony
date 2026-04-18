@@ -9,7 +9,7 @@ public class MissionSession {
     private final MissionType missionType;
     private final Threat threat;
     private final List<CrewMember> squad;
-    private final List<String> log = new ArrayList<>();
+    private final List<MissionLogEntry> log = new ArrayList<>();
     private final Random random = new Random();
     private int actorIndex;
     private boolean ended;
@@ -20,7 +20,7 @@ public class MissionSession {
         this.missionType = missionType;
         this.threat = threat;
         this.squad = squad;
-        this.log.add("Mission started: " + missionType.getLabel() + " vs " + threat.getName());
+        this.log.add(MissionLogEntry.system("Mission started: " + missionType.getLabel() + " vs " + threat.getName()));
     }
 
     public void performTurn(CrewAction action) {
@@ -35,7 +35,7 @@ public class MissionSession {
         int outgoing;
         if (action == CrewAction.DEFEND) {
             actor.defend();
-            log.add(actor.getSpecialization() + " " + actor.getName() + " takes a defensive stance.");
+            log.add(MissionLogEntry.crew(actor.getName() + " takes a defensive stance.", actor.getSpecialization()));
             outgoing = 0;
         } else if (action == CrewAction.SPECIAL) {
             outgoing = actor.useSpecialAbility(missionType, random);
@@ -45,7 +45,7 @@ public class MissionSession {
 
         if (outgoing > 0) {
             int dealt = threat.takeDamage(outgoing);
-            log.add(actor.getName() + " dealt " + dealt + " damage to " + threat.getName() + ".");
+            log.add(MissionLogEntry.crew(actor.getName() + " dealt " + dealt + " damage to " + threat.getName() + ".", actor.getSpecialization()));
         }
 
         if (threat.isDefeated()) {
@@ -59,9 +59,9 @@ public class MissionSession {
             return;
         }
         int threatDamage = target.takeDamage(threat.attack(random));
-        log.add(threat.getName() + " retaliated for " + threatDamage + " damage against " + target.getName() + ".");
+        log.add(MissionLogEntry.threat(threat.getName() + " retaliated for " + threatDamage + " damage against " + target.getName() + "."));
         if (target.getEnergy() <= 0) {
-            log.add(target.getName() + " is down and moved to Medbay.");
+            log.add(MissionLogEntry.crew(target.getName() + " is down and moved to Medbay.", target.getSpecialization()));
             storage.moveCrew(target.getId(), Location.MEDBAY);
         }
         if (!hasAliveCrew()) {
@@ -110,12 +110,14 @@ public class MissionSession {
                 if (didWin) {
                     member.grantMissionXp();
                     storage.moveCrew(member.getId(), Location.MISSION_CONTROL);
+                } else {
+                    storage.moveCrew(member.getId(), Location.QUARTERS);
                 }
             } else {
                 member.addMissionResult(false);
             }
         }
-        log.add(didWin ? "Threat neutralized. Survivors gained XP." : "Mission failed. Squad evacuated.");
+        log.add(MissionLogEntry.system(didWin ? "Threat neutralized. Survivors gained XP." : "Mission failed. Squad evacuated."));
     }
 
     public List<CrewMember> getSquad() {
@@ -130,7 +132,7 @@ public class MissionSession {
         return missionType;
     }
 
-    public List<String> getLog() {
+    public List<MissionLogEntry> getLog() {
         return log;
     }
 

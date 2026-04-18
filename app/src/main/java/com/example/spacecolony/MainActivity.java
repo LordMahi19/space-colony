@@ -21,6 +21,14 @@ import com.example.spacecolony.ui.StatsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final Fragment homeFragment = new HomeFragment();
+    private final Fragment recruitFragment = new RecruitFragment();
+    private final Fragment quartersFragment = new QuartersFragment();
+    private final Fragment simulatorFragment = new SimulatorFragment();
+    private final Fragment missionFragment = new MissionFragment();
+    private final Fragment medbayFragment = new MedbayFragment();
+    private final Fragment statsFragment = new StatsFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        bindNavigation(R.id.navHome, new HomeFragment());
-        bindNavigation(R.id.navRecruit, new RecruitFragment());
-        bindNavigation(R.id.navQuarters, new QuartersFragment());
-        bindNavigation(R.id.navSimulator, new SimulatorFragment());
-        bindNavigation(R.id.navMission, new MissionFragment());
-        bindNavigation(R.id.navMedbay, new MedbayFragment());
-        bindNavigation(R.id.navStats, new StatsFragment());
+        bindNavigation(R.id.navHome, homeFragment);
+        bindNavigation(R.id.navRecruit, recruitFragment);
+        bindNavigation(R.id.navQuarters, quartersFragment);
+        bindNavigation(R.id.navSimulator, simulatorFragment);
+        bindNavigation(R.id.navMission, missionFragment);
+        bindNavigation(R.id.navMedbay, medbayFragment);
+        bindNavigation(R.id.navStats, statsFragment);
 
         findViewById(R.id.navSave).setOnClickListener(v -> {
             boolean ok = GameRepository.get().save(this);
@@ -55,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if (savedInstanceState == null) {
-            open(new HomeFragment());
+            open(homeFragment);
         }
     }
 

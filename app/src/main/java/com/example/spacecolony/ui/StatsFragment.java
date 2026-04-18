@@ -68,5 +68,15 @@ public class StatsFragment extends Fragment {
         all.addAll(storage.getCrewAt(Location.MISSION_CONTROL));
         all.addAll(storage.getCrewAt(Location.MEDBAY));
         adapter.setCrew(all);
+
+        BarChartView chart = view.findViewById(R.id.statsBarChart);
+        List<BarChartView.BarEntry> chartEntries = new ArrayList<>();
+        for (CrewMember member : all) {
+            chartEntries.add(new BarChartView.BarEntry(
+                    member.getName(),
+                    member.getVictories(),
+                    CrewVisuals.color(member.getSpecialization())));
+        }
+        chart.setEntries(chartEntries);
     }
 }

@@ -6,7 +6,8 @@ public enum MissionType {
     COMBAT("Alien Skirmish"),
     REPAIR_STATION("Repair Station"),
     RESEARCH("Research Anomaly"),
-    NAVIGATION("Asteroid Navigation");
+    NAVIGATION("Asteroid Navigation"),
+    RESCUE("Rescue Operation");
 
     private final String label;
 

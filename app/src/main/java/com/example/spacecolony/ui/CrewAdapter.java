@@ -1,5 +1,6 @@
 package com.example.spacecolony.ui;
 
+import android.animation.ObjectAnimator;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,7 +80,15 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewViewHolder
                 + " T " + member.getTrainingSessions());
         holder.energy.setText("Energy " + member.getEnergy() + "/" + member.getMaxEnergy());
         holder.bar.setMax(member.getMaxEnergy());
-        holder.bar.setProgress(member.getEnergy());
+        Integer prevEnergy = (Integer) holder.bar.getTag(R.id.tag_crew_energy);
+        if (prevEnergy != null && prevEnergy != member.getEnergy()) {
+            ObjectAnimator.ofInt(holder.bar, "progress", prevEnergy, member.getEnergy())
+                    .setDuration(300)
+                    .start();
+        } else {
+            holder.bar.setProgress(member.getEnergy());
+        }
+        holder.bar.setTag(R.id.tag_crew_energy, member.getEnergy());
         holder.icon.setImageResource(CrewVisuals.icon(member.getSpecialization()));
         holder.checkBox.setChecked(checked);
         holder.itemView.setOnClickListener(v -> toggle(member.getId(), holder.getBindingAdapterPosition()));
@@ -110,6 +119,7 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewViewHolder
         super.onViewRecycled(holder);
         holder.itemView.animate().cancel();
         holder.itemView.setTag(R.id.tag_crew_row_animated, null);
+        holder.bar.setTag(R.id.tag_crew_energy, null);
     }
 
     private void toggle(int id, int adapterPosition) {

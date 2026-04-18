@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,7 @@ import com.example.spacecolony.GameRepository;
 import com.example.spacecolony.R;
 import com.example.spacecolony.model.CrewAction;
 import com.example.spacecolony.model.CrewMember;
+import com.example.spacecolony.model.MissionLogEntry;
 import com.example.spacecolony.model.Location;
 import com.example.spacecolony.model.MissionSession;
 
@@ -31,7 +35,9 @@ public class MissionFragment extends Fragment {
     private CrewAdapter adapter;
     private MissionSession session;
     private TextView title;
-    private TextView log;
+    private LinearLayout logContainer;
+    private ScrollView logScroll;
+    private int lastLogSize;
     private ProgressBar threatBar;
     private View threatCard;
     private MaterialButton launch;
@@ -56,7 +62,8 @@ public class MissionFragment extends Fragment {
         recycler.setAdapter(adapter);
         threatCard = view.findViewById(R.id.missionThreatCard);
         title = view.findViewById(R.id.missionTitle);
-        log = view.findViewById(R.id.missionLog);
+        logContainer = view.findViewById(R.id.missionLogContainer);
+        logScroll = view.findViewById(R.id.missionLogScroll);
         threatBar = view.findViewById(R.id.threatEnergyBar);
         launch = view.findViewById(R.id.launchMissionButton);
         attack = view.findViewById(R.id.missionAttackButton);
@@ -88,7 +95,8 @@ public class MissionFragment extends Fragment {
             return;
         }
         session = GameRepository.get().getMissionControl().launchMission(selected);
-        log.setText("");
+        logContainer.removeAllViews();
+        lastLogSize = 0;
         appendLog();
         title.setText(session.getMissionType().getLabel() + " vs " + session.getThreat().getName());
         threatBar.setMax(session.getThreat().getMaxEnergy());
@@ -122,11 +130,36 @@ public class MissionFragment extends Fragment {
         if (session == null) {
             return;
         }
-        StringBuilder sb = new StringBuilder();
-        for (String line : session.getLog()) {
-            sb.append(line).append('\n');
+        java.util.List<MissionLogEntry> entries = session.getLog();
+        android.view.LayoutInflater inflater = getLayoutInflater();
+        for (int i = lastLogSize; i < entries.size(); i++) {
+            MissionLogEntry entry = entries.get(i);
+            View row = inflater.inflate(R.layout.item_mission_log, logContainer, false);
+            ImageView entryIcon = row.findViewById(R.id.logEntryIcon);
+            TextView entryText = row.findViewById(R.id.logEntryText);
+            entryText.setText(entry.getText());
+            int iconRes = 0;
+            switch (entry.getActorType()) {
+                case CREW:
+                    iconRes = CrewVisuals.icon(entry.getSpecialization());
+                    entryText.setTextColor(0xB3C4D4E8);
+                    break;
+                case THREAT:
+                    iconRes = CrewVisuals.threatIcon();
+                    entryText.setTextColor(0xFFFF6B6B);
+                    break;
+                case SYSTEM:
+                    entryText.setTextColor(0xFF00D4FF);
+                    break;
+            }
+            if (iconRes != 0) {
+                entryIcon.setImageResource(iconRes);
+                entryIcon.setVisibility(View.VISIBLE);
+            }
+            logContainer.addView(row);
         }
-        log.setText(sb.toString());
+        lastLogSize = entries.size();
+        logScroll.post(() -> logScroll.fullScroll(View.FOCUS_DOWN));
     }
 
     private void updateButtons() {

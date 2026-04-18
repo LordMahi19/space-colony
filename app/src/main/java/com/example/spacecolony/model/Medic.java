@@ -7,6 +7,6 @@ public class Medic extends CrewMember {
 
     @Override
     public int getMissionBonus(MissionType type) {
-        return type == MissionType.RESEARCH ? 2 : 0;
+        return type == MissionType.RESCUE ? 2 : 0;
     }
 }
