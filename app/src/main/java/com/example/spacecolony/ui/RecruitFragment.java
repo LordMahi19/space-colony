@@ -38,7 +38,9 @@ public class RecruitFragment extends Fragment {
         MaterialButton create = view.findViewById(R.id.recruitCreateButton);
         View recruitRoot = view.findViewById(R.id.recruitRoot);
 
-        specSpinner.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, SPECIALIZATIONS));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), R.layout.item_spinner, SPECIALIZATIONS);
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+        specSpinner.setAdapter(adapter);
         specSpinner.setOnItemSelectedListener(new SimpleItemSelectedListener(position -> {
             preview.setImageResource(CrewVisuals.icon(SPECIALIZATIONS[position]));
             UiEffects.pulse(preview);

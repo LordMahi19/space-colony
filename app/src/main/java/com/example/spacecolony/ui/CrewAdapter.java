@@ -77,6 +77,7 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewViewHolder
                 + " | XP " + member.getExperience()
                 + " | M " + member.getMissionsCompleted()
                 + " W " + member.getVictories()
+                + " L " + member.getLostMissions()
                 + " T " + member.getTrainingSessions());
         holder.energy.setText("Energy " + member.getEnergy() + "/" + member.getMaxEnergy());
         holder.bar.setMax(member.getMaxEnergy());

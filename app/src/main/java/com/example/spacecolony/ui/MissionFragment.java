@@ -117,11 +117,12 @@ public class MissionFragment extends Fragment {
         session.performTurn(action);
         animateThreatProgress(session.getThreat().getEnergy());
         UiEffects.pulse(threatBar);
-        adapter.notifyDataSetChanged();
         appendLog();
+        adapter.notifyDataSetChanged();
         if (session.isEnded()) {
             Toast.makeText(requireContext(), session.isVictory() ? "Mission successful!" : "Mission failed.", Toast.LENGTH_SHORT).show();
             refreshSelection();
+            adapter.notifyDataSetChanged();
         }
         updateButtons();
     }

@@ -109,6 +109,7 @@ public class MissionSession {
                 member.addMissionResult(didWin);
                 if (didWin) {
                     member.grantMissionXp();
+                    log.add(MissionLogEntry.crew(member.getName() + " gained XP (now " + member.getExperience() + ").", member.getSpecialization()));
                     storage.moveCrew(member.getId(), Location.MISSION_CONTROL);
                 } else {
                     storage.moveCrew(member.getId(), Location.QUARTERS);
@@ -117,7 +118,7 @@ public class MissionSession {
                 member.addMissionResult(false);
             }
         }
-        log.add(MissionLogEntry.system(didWin ? "Threat neutralized. Survivors gained XP." : "Mission failed. Squad evacuated."));
+        log.add(MissionLogEntry.system(didWin ? "Threat neutralized!" : "Mission failed. Squad evacuated."));
     }
 
     public List<CrewMember> getSquad() {

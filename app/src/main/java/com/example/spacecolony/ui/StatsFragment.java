@@ -52,11 +52,14 @@ public class StatsFragment extends Fragment {
             return;
         }
         Storage storage = GameRepository.get().getStorage();
-        int missions = Math.max(1, storage.getTotalMissions());
-        int winRate = (int) ((storage.getTotalMissionWins() * 100f) / missions);
+        int totalMissions = storage.getTotalMissions();
+        int wins = storage.getTotalMissionWins();
+        int losses = totalMissions - wins;
+        int missions = Math.max(1, totalMissions);
+        int winRate = (int) ((wins * 100f) / missions);
         TextView label = view.findViewById(R.id.statsSummary);
         ProgressBar winRateBar = view.findViewById(R.id.statsWinRateBar);
-        label.setText("Win rate: " + winRate + "%");
+        label.setText("Win rate: " + winRate + "%  (" + wins + "W / " + losses + "L of " + totalMissions + " missions)");
         int start = winRateBar.getProgress();
         ObjectAnimator anim = ObjectAnimator.ofInt(winRateBar, "progress", start, winRate);
         anim.setDuration(650);
