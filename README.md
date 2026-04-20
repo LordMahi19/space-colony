@@ -58,7 +58,7 @@ The application features a polished dark space-themed UI with animated starfield
 
 The class diagram below shows the model and logic layer of the application, **excluding UI classes** (Activities, Fragments, Adapters, Views) as per the project requirements.
 
-![[uml.png]]
+![UML class diagram](attachment/uml.png)
 
 # 3. Implemented Features
 
@@ -192,7 +192,7 @@ No third-party networking, database (Room, SQLite), or dependency injection libr
 ## 10.2 System Architecture
 
 The application follows a **three-layer architecture** with clear separation of concerns:
-![[how.png]]
+![How it works](attachment/how.png)
 
 ### 10.2.1 Model Layer
 
@@ -293,11 +293,17 @@ Threat stats scale with the total number of missions completed (stored in Storag
 ## 10.4 Data Flow
 
 ### 10.4.1 Recruitment Flow
-![[recruitement.png]]
+
+![recruitment flow](recruitement.png)
+
 ### 10.4.2 Mission Flow
-![[mission.png]]
+
+![mission flow](mission.png)
+
 ### 10.4.3 Save / Load Flow
-![[saveload.png]]
+
+![save and load flow](saveload.png]
+
 ### 10.4.4 Crew Location State Machine
 
 Crew members transition between locations based on player actions:
