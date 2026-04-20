@@ -58,7 +58,7 @@ The application features a polished dark space-themed UI with animated starfield
 
 The class diagram below shows the model and logic layer of the application, **excluding UI classes** (Activities, Fragments, Adapters, Views) as per the project requirements.
 
-![UML class diagram](attachment/uml.png)
+![UML class diagram](attachement/uml.png)
 
 # 3. Implemented Features
 
@@ -294,18 +294,18 @@ Threat stats scale with the total number of missions completed (stored in Storag
 
 ### 10.4.1 Recruitment Flow
 
-![recruitment flow](recruitement.png)
+![recruitment flow](attachement/recruitement.png)
 
 ### 10.4.2 Mission Flow
 
-![mission flow](mission.png)
+![mission flow](attachement/mission.png)
 
 ### 10.4.3 Save / Load Flow
 
-![save and load flow](saveload.png]
+![save and load flow](attachement/saveload.png]
 
 ### 10.4.4 Crew Location State Machine
 
 Crew members transition between locations based on player actions:
-![[crewlocation.png]]
+![crew location state machine](attachement/crewlocation.png)
 Each arrow corresponds to a `Storage.moveCrew(id, destination)` call. Moving to QUARTERS automatically restores energy via `CrewMember.restoreEnergy().` Moving to MEDBAY after defeat preserves the crew member (no permanent death). Recovery from Medbay applies an XP penalty via `applyMedbayPenalty().`
