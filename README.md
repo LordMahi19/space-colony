@@ -303,7 +303,7 @@ Threat stats scale with the total number of missions completed (stored in Storag
 
 ### 10.4.3 Save / Load Flow
 
-![save and load flow](attachement/saveload.png]
+![save and load flow](attachement/saveload.png)
 
 ### 10.4.4 Crew Location State Machine
 
