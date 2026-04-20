@@ -192,7 +192,8 @@ No third-party networking, database (Room, SQLite), or dependency injection libr
 ## 10.2 System Architecture
 
 The application follows a **three-layer architecture** with clear separation of concerns:
-![How it works](attachment/how.png)
+
+![How it works](attachement/how.png)
 
 ### 10.2.1 Model Layer
 
